@@ -13,7 +13,7 @@ class KHATTDataset(Dataset):
         self.image_files = [f for f in os.listdir(image_dir) if f.lower().endswith((".tif", ".tiff", ".png", ".jpg"))]
         self.transform = transforms.Compose([
             transforms.Grayscale(),
-            transforms.Resize((28, 28)),
+            transforms.Resize((32, 32)),
             transforms.ToTensor(),
             transforms.Normalize((0.5,), (0.5,))
         ])
@@ -27,9 +27,6 @@ class KHATTDataset(Dataset):
 
         txt_name = os.path.splitext(img_name)[0] + ".txt"
         txt_path = os.path.join(self.text_dir, txt_name)
-
-        print(f"🧾 Looking for: {txt_path}")
-        print(f"🗂 Exists: {os.path.exists(txt_path)}")
 
         if not os.path.exists(txt_path):
             raise FileNotFoundError(f"Text file not found: {txt_path}")
